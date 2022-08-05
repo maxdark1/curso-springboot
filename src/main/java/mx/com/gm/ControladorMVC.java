@@ -9,7 +9,9 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import lombok.extern.slf4j.Slf4j;
+import mx.com.gm.dao.PersonaDao;
 import mx.com.gm.domain.Persona;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.ui.Model;
 
@@ -23,27 +25,26 @@ import org.springframework.ui.Model;
 public class ControladorMVC {
     @Value("${index.saludo}")
     private String saludo;
+    @Autowired
+    private PersonaDao personaDao;
     
     @GetMapping("/mvc")
     public String inicio(Model model){
         String mensaje = "Hola Mundo Desde el Controllador";
-        
+    
+        //Objeto Statico
         Persona persona = new Persona();
         persona.setNombre("Juan");
-        persona.setApellido("Perez");
-        persona.setEmail("jperez@gmail.com");
-        persona.setTelefono("554432");
+        persona.setApellido("Lara");
+        persona.setEmail("max_lara3005@hotmail.com");
+        persona.setTelefono("888888");
+        persona.setIdPersona(Long.MIN_VALUE);
+           
+        //Extraer de base de datos
+        Iterable<Persona> personas = personaDao.findAll();
         
-        Persona persona2 = new Persona();
-        persona2.setNombre("Que");
-        persona2.setApellido("Hueva");
-        persona2.setEmail("Me da");
-        persona2.setTelefono("JAVA");
-        
-        List<Persona> personas = Arrays.asList(persona, persona2);
-        //List<Persona> personas  = new ArrayList();
-        model.addAttribute("personas", personas);
-                
+       
+        model.addAttribute("personas", personas);         
         model.addAttribute("mensaje", mensaje);
         model.addAttribute("saludo", saludo);
         model.addAttribute("persona", persona);
