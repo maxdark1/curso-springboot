@@ -3,17 +3,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package mx.com.gm;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import lombok.extern.slf4j.Slf4j;
-import mx.com.gm.dao.PersonaDao;
 import mx.com.gm.domain.Persona;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.ui.Model;
+import mx.com.gm.service.PersonaService;
 
 /**
  *
@@ -26,7 +23,7 @@ public class ControladorMVC {
     @Value("${index.saludo}")
     private String saludo;
     @Autowired
-    private PersonaDao personaDao;
+    private PersonaService personaService;
     
     @GetMapping("/mvc")
     public String inicio(Model model){
@@ -41,8 +38,7 @@ public class ControladorMVC {
         persona.setIdPersona(Long.MIN_VALUE);
            
         //Extraer de base de datos
-        Iterable<Persona> personas = personaDao.findAll();
-        
+        Iterable<Persona> personas = personaService.listarPersonas();
        
         model.addAttribute("personas", personas);         
         model.addAttribute("mensaje", mensaje);
