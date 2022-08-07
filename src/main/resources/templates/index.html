@@ -6,6 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
+        <a th:href="@{/agregar}">Crear Persona</a>
         <h1>Inicio</h1>
         <p th:text="Adios"></p>
         <p th:text="${mensaje}"></p>
@@ -17,6 +18,10 @@
                 Apellido: <span th:text="${persona.apellido}">Apellido</span><br>
                 Email: <span th:text="${persona.email}">Email</span><br>
                 Telefono: <span th:text="${persona.telefono}">Telefono</span><br>
+                <a th:href="@{/editar/} + ${persona.idPersona}">Editar</a>
+                <br/>
+                <a th:href="@{/eliminar/} + ${persona.idPersona}">Eliminar</a>
+                <br/>
                 <br/>
             </div>
         </div>
